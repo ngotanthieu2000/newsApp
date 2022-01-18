@@ -11,11 +11,17 @@ const PostSchema = new Schema(
             required:true
         },
         author:{
-            type: mongoose.Schema.Types.ObjectId, ref:'Users'
+            type: mongoose.Schema.Types.ObjectId, 
+            ref:'Users',
+            required:true
+        },
+        approver:{
+            type: mongoose.Schema.Types.ObjectId, 
+            ref:'Users'
         },
         categories:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'Categories'
+            type:String,
+            required:true
         },
         status : {
             type:String,
@@ -27,8 +33,7 @@ const PostSchema = new Schema(
                 ref:'Users'
             },
             contentComment: {
-                type:String,
-                required:true
+                type:String
             }
         },{timestamps:true}]
     },

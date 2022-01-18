@@ -4,7 +4,8 @@ const UserSchema = new Schema(
     {
         userName:{
             type:String,
-            required:true
+            required:true,
+            unique:true
         },
         email:{
             type:String,
@@ -27,7 +28,12 @@ const UserSchema = new Schema(
             type:String,
         },
         role:{
-                type:mongoose.Schema.Types.ObjectId, ref:'Roles'
+            type:String,
+            default:"Author"
+        },
+        refreshToken:{
+            type:String,
+            default:""
         }
     },
     {timestamps:true}

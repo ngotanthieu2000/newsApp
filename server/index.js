@@ -4,8 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import route from "./routers/index.js";
 
-// const URI = 'mongodb+srv://admin:9Xj8SBfgz7kUZXsP@cluster0.xwu1z.mongodb.net/News?retryWrites=true&w=majority';
-const URI = 'mongodb://localhost:27017/news';
+const URI = 'mongodb+srv://admin:9Xj8SBfgz7kUZXsP@cluster0.xwu1z.mongodb.net/News?retryWrites=true&w=majority';
+// const URI = 'mongodb://localhost:27017/news';
 const app = express();
 const PORT = process.env.PORT || 5000;
 

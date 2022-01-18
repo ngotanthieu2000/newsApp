@@ -1,5 +1,5 @@
 import {CategoriesModel} from "../models/CategoriesModel.js";
-
+import { PostModel } from "../models/PostModel.js";
 export const createCategories = async (req,res) =>{
     try {
         const data = req.body;
@@ -12,19 +12,32 @@ export const createCategories = async (req,res) =>{
     }
 }
 
-export const getCategories = async (req,res,next) =>{
+export const getCategories = async (req,res) =>{
     try {
-        const categoriesName = req.body.categoriesName;
-        const categories = await CategoriesModel.findOne({categoriesName:categoriesName}).exec();
+  
+        const categories = await CategoriesModel.find();
         if(categories){
-            // console.log(categories);
-            req.body._id = categories._id;
-            next();
+            res.status(200).json({Categories:categories});
         }
         else{
-           return res.status(404).json({error:"Not found categories!"});
+            res.status(404).json({error:"Not found categories!"});
         }
     } catch (error) {
-        return res.status(500).json({error:error});
+         res.status(500).json({error:error});
+    }
+}
+
+export const deleteCategories = async (req,res) =>{
+    try {
+        const deleteCategories = await CategoriesModel.findByIdAndDelete({_id:req.params.id});
+        if(deleteCategories){
+            await PostModel.updateMany({categories:req.params.id}, {$set:{status:"Hiden"}});
+            res.status(200).json({Success:"Categories delete successfuly"});
+        }
+        else{
+            res.status(404 ).json({Error:"Categories not found"});
+        }
+    } catch (error) {
+        res.status(500).json({error});
     }
 }
